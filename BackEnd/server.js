@@ -1,7 +1,9 @@
 import express  from "express";
 import { config } from "dotenv";
 import mongoose from "mongoose";
-import { blogRoute } from "./backendServices/routes/BlogRoute.js";
+import { authorRoute } from "./services/routes/AuthorRoute.js";
+import cors from "cors";
+import { blogPostRoute } from "./services/routes/BlogPostRoute.js";
 
 //Inizializziamo la gestione dei file .env
 config();
@@ -12,11 +14,15 @@ const PORT = process.env.PORT || 3001;
 //Crea il server
 const app = express();
 
+//Abilita la comunicazione con il frontend
+app.use(cors());
+
 //Abilita la comunicazione con dati JSON
 app.use(express.json());
 
 //Importa Routes
-app.use("/authors", blogRoute);
+app.use("/authors", authorRoute);
+app.use("/blogPosts", blogPostRoute);
 
 
 const initServer = async () => {
