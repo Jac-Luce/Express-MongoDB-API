@@ -14,7 +14,7 @@ const blogPostSchema = new Schema(
 
         cover: {
             type: String,
-            required: true
+            required: false
         },
 
         readTime: {
@@ -29,6 +29,8 @@ const blogPostSchema = new Schema(
         },
 
         author: {
+            /*type: String,
+            required: true*/
             type: Schema.Types.ObjectId,
             ref: "Author"
         },
@@ -36,11 +38,17 @@ const blogPostSchema = new Schema(
         content: {
             type: String,
             required: true
-        }
+        },
+
+        comments: [{
+            type: Schema.Types.ObjectId,
+            ref: "Comment"
+        }],
     },
 
     {
-        collection: "blogPost"
+        collection: "blogPost",
+        timestamps: true //Questo comando mette in automatico la data in cui è stato creato e/o modificato il blogPost
     }
 );
 

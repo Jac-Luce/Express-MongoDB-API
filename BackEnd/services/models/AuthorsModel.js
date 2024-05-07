@@ -24,12 +24,18 @@ const authorSchema = new Schema(
 
         avatar: {
             type: String,
+            required: false
+        },
+
+        password: {
+            type: String,
             required: true
         }
     },
 
     {
-        collection: "authors"
+        collection: "authors",
+        timestamps: true
     }
 );
 
