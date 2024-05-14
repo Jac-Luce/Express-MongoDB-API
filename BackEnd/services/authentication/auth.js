@@ -1,5 +1,8 @@
 import jwt from "jsonwebtoken";
 import Author from "../models/AuthorsModel.js";
+import { config } from "dotenv";
+
+config();
 
 //Funzione che genera il JWT (Json Web Token)
 export const generateJWT = (payload) => {
@@ -51,13 +54,13 @@ export const verifyJWT = (token) => {
 export const authMiddleware = async (req, res, next) => {
     try {
         //Se non è stato fornito il token nell'header
-        if (!req.header.authorization) {
+        if (!req.headers.authorization) {
             //Effettua il login
             res.status(400).send("Effettua il login");
         } else {
             //Il token è stato fornito, verifichiamo che sia valido tramite la funzione verifyJWT e andiamo a togliere la stringa "Bearer " che precede il token
             const decoded = await verifyJWT(
-                req.header.authorization.replace("Bearer ", "")
+                req.headers.authorization.replace("Bearer ", "")
             ); 
 
             //Verifichiamo che il token esiste con exp

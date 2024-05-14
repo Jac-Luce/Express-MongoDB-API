@@ -19,7 +19,7 @@ const authorSchema = new Schema(
 
         dateOfBirth: {
             type: String,
-            required: true
+            required: false
         },
 
         avatar: {
@@ -30,6 +30,11 @@ const authorSchema = new Schema(
         password: {
             type: String,
             required: true
+        },
+
+        googleId: {
+            type: String,
+            required: false
         }
     },
 

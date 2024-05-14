@@ -64,7 +64,7 @@ blogPostRoute.delete("/:id", async(req, res, next) => {
 //POST creazione di un nuovo blogPost
 blogPostRoute.post("/", async(req, res, next) => {
     try {
-        let blogPost = await BlogPost.create(req.body);
+        let blogPost = await BlogPost.create({...req.body, author: req.author._id});
         res.send(blogPost).status(400);
     } catch (error) {
         next(error);
@@ -132,7 +132,7 @@ blogPostRoute.delete("/:id/comments/:commentId", async(req, res, next) => {
 //POST aggiungi un nuovo commento ad uno specifico blogPost
 blogPostRoute.post("/:id/comments", async(req, res, next) => {
     try {
-        let comment = new Comment(req.body);
+        let comment = new Comment({...req.body, author: req.author._id});
         comment.save();
 
         await BlogPost.findByIdAndUpdate(req.params.id, {
