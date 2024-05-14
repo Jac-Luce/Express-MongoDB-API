@@ -5,7 +5,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import AuthContext from '../../contextProvider/AuthContextProvider';
 
-export default function Register({token, setToken}) {
+export default function Register() {
     const navigate = useNavigate();
 
     const [email, setEmail] = useState("");
@@ -13,7 +13,7 @@ export default function Register({token, setToken}) {
     const [lastName, setLastName] = useState("");
     const [password, setPassword] = useState("");
 
-    /*const {token, setToken} = useContext(AuthContext);*/
+    const {token, setToken} = useContext(AuthContext);
 
     /*const [token, setToken] = useState(localStorage.getItem("token" || "")); */
 

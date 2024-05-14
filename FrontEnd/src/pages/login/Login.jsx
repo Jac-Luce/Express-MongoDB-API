@@ -6,7 +6,7 @@ import AuthContext from '../../contextProvider/AuthContextProvider';
 import { useState, useContext, useEffect } from 'react';
 import GoogleAuth from '../../components/authentication/GoogleAuth';
 
-export default function Login({token, setToken}) {
+export default function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -14,7 +14,7 @@ export default function Login({token, setToken}) {
    /* const [token, setToken] = useState(localStorage.getItem("token" || ""));*/
     const navigate = useNavigate();
 
-    /* const {token, setToken} = useContext(AuthContext);*/
+    const {token, setToken} = useContext(AuthContext);
 
     const signInLogin = async (e) => {
         e.preventDefault();
@@ -43,7 +43,9 @@ export default function Login({token, setToken}) {
     };
 
    useEffect(() => {
-        if(token !== "") navigate("/me" + token)
+        if(token !== "") {
+            navigate("/me")
+        }
     }, [token]); 
 
   return (

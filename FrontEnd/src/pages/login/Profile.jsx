@@ -4,9 +4,9 @@ import Logout from '../../components/authentication/Logout';
 import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../contextProvider/AuthContextProvider';
 
-export default function Profile({token, setToken}) {
+export default function Profile() {
 
-    /*const {token} = useContext(AuthContext);*/
+    const {token} = useContext(AuthContext);
 
     const [data, setData] = useState({});
 
@@ -45,7 +45,7 @@ export default function Profile({token, setToken}) {
                         <Card.Text>{data.dateOfBirth}</Card.Text>
                     </Card.Body>
                 </Card>
-                <Logout setToken={setToken}/>
+                <Logout />
             </Col>
         </Row>
     </Container>

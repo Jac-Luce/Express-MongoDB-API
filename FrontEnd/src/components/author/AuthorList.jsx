@@ -4,15 +4,15 @@ import { useContext, useEffect, useState } from 'react';
 import AuthContext from '../../contextProvider/AuthContextProvider';
 import SingleAuthor from './SingleAuthor';
 
-export default function AuthorList({token}) {
+export default function AuthorList() {
 
-    /*const {token} = useContext(AuthContext);*/
+    const {token} = useContext(AuthContext);
 
     const [authors, setAuthors] = useState([]);
 
     const authorResults = async () => {
         try {
-            const response = await fetch("http://localhost:3001/authors", {
+            const response = await fetch("http://localhost:3001/authors/", {
                 method:"GET",
                 headers: {"Authorization": "Bearer " + token, "Content-Type": "application/json"}
             });
@@ -28,7 +28,7 @@ export default function AuthorList({token}) {
 
     useEffect(() => {
         authorResults();
-    }, []);
+    }, [authors]);
 
   return (
     <Container>

@@ -1,31 +1,49 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Container, Image } from "react-bootstrap";
 import { useNavigate, useParams } from "react-router-dom";
 import BlogAuthor from "../../components/blog/blog-author/BlogAuthor";
 import BlogLike from "../../components/likes/BlogLike";
 import posts from "../../data/posts.json";
 import "./styles.css";
+import { AuthContext } from "../../contextProvider/AuthContextProvider";
 
 const Blog = props => {
+  const {token} = useContext(AuthContext);
   const [blog, setBlog] = useState({});
-  const [loading, setLoading] = useState(true);
+ // const [loading, setLoading] = useState(true);
   const params = useParams();
-  const navigate = useNavigate();
-  useEffect(() => {
-    const { id } = params;
-    const blog = posts.find(post => post._id.toString() === id);
+  //const navigate = useNavigate();
+  const { _id } = params;
 
+  const singleBlog = async () => {
+    try {
+      const response = await fetch(`http://localhost:3001/blogPosts/${_id}`, {
+        method:"GET",
+        headers: {headers: {"Authorization": "Bearer " + token, "Content-Type": "application/json"}}
+      });
+      if(response.ok) {
+        const result = await response.json();
+        setBlog(result);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  useEffect(() => {
+  /*const { id } = params;
+    const blog = posts.find(post => post._id.toString() === id);
     if (blog) {
       setBlog(blog);
       setLoading(false);
     } else {
       navigate("/404");
-    }
-  }, []);
+    }*/
+    singleBlog();
+  }, [blog]);
 
-  if (loading) {
+  /*if (loading) {
     return <div>loading</div>;
-  } else {
+  } else {} */
     return (
       <div className="blog-details-root">
         <Container>
@@ -37,6 +55,8 @@ const Blog = props => {
               <BlogAuthor {...blog.author} />
             </div>
             <div className="blog-details-info">
+              <div>{blog.category}</div>
+              <div>{blog.content}</div>
               <div>{blog.createdAt}</div>
               <div>{`lettura da ${blog.readTime.value} ${blog.readTime.unit}`}</div>
               <div
@@ -57,7 +77,7 @@ const Blog = props => {
         </Container>
       </div>
     );
-  }
+  
 };
 
 export default Blog;

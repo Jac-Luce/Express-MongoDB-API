@@ -7,13 +7,13 @@ export const AuthContext = createContext(null);
 export default function AuthContextProvider({children}) {
 
     const [token, setToken] = useState(localStorage.getItem("token" || ""));
-    /*const [authenticated, setAuthenticated] = useState(true);
+    const [authenticated, setAuthenticated] = useState(true);
 
     useEffect(() => {
         setAuthenticated(token !== "");
-    }, [token]); */
+    }, [token]);
 
-    const value = {token, setToken};
+    const value = {token, setToken, authenticated};
 
   return (
     

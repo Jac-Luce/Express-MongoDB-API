@@ -5,7 +5,7 @@ import Comment from "../models/CommentModel.js";
 
 export const blogPostRoute = Router();
 
-//GET per paginazione
+//GET per paginazione e lista post
 blogPostRoute.get("/", async(req, res, next) => {
     try {
         const page = req.query.page || 1;
@@ -17,7 +17,7 @@ blogPostRoute.get("/", async(req, res, next) => {
     } 
 });
 
-//GET riceve la lista dei blogPost
+/*//GET riceve la lista dei blogPost
 blogPostRoute.get("/", async(req, res, next) => {
     try {
         let blogPostList = await BlogPost.find();
@@ -25,7 +25,7 @@ blogPostRoute.get("/", async(req, res, next) => {
     } catch (error) {
         next(error);
     } 
-});
+});*/
 
 //GET riceve uno specifico blogPost tramite id
 blogPostRoute.get("/:id", async(req, res, next) => {
